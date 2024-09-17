@@ -50,7 +50,7 @@ jobs:
         run: |
           cat << EOF >> .npmrc 
           //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
-          @octocat:registry=https://npm.pkg.github.com
+          @cameronpresley:registry=https://npm.pkg.github.com
           always-auth=true
           EOF
       
