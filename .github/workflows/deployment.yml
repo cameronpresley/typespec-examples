@@ -5,8 +5,10 @@ permissions:
   packages: write # Needed to upload package
 
 on:
-  push:
+  pull_request:
     branches: [main]
+  workflow_dispatch:
+    
 
 jobs:
   deploy:
@@ -19,7 +21,7 @@ jobs:
       - name: 'Setup Java'
         uses: actions/setup-java@v4
         with: 
-          distribution: oracle
+          distribution: temurin
           java-version: 22
 
       - name: 'Setup Node'
