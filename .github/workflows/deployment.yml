@@ -47,6 +47,7 @@ jobs:
       - name: Copy .npmrc file for package
         shell: bash
         run: |
+          ls -al
           cp .npmrc sdk-output/api_client
       
       - name: Upload to Package Repo
