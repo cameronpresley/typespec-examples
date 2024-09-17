@@ -48,7 +48,7 @@ jobs:
         shell: bash
         working-directory: output/api_client
         run: |
-          npm ci
+          npm install
           npm publish
         env: 
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
