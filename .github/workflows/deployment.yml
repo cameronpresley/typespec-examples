@@ -44,19 +44,14 @@ jobs:
         run: | 
           npm run generate
 
-      - name: Create .npmrc file for package
+      - name: Copy .npmrc file for package
         shell: bash
-        working-directory: output/api_client
         run: |
-          cat << EOF >> .npmrc 
-          //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
-          @cameronpresley:registry=https://npm.pkg.github.com
-          always-auth=true
-          EOF
+          cp .npmrc sdk-output/api_client
       
       - name: Upload to Package Repo
         shell: bash
-        working-directory: output/api_client
+        working-directory: sdk-output/api_client
         run: |
           npm install
           npm publish
