@@ -6,13 +6,17 @@
     "start": "npm run getDeps & npm run watch",
     "compile": "tsp compile .",
     "getDeps": "tsp install",
-    "watch": "tsp compile . --watch"
+    "watch": "tsp compile . --watch",
+    "generate": "openapi-generator-cli generate -g typescript-axios -i tsp-output/@typespec/openapi3/openapi.yaml -o ./output/api_client -c ./sdk.config.json"
   },
   "dependencies": {
     "@typespec/compiler": "latest",
     "@typespec/http": "latest",
     "@typespec/rest": "latest",
     "@typespec/openapi3": "latest"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.5"
   },
   "private": true
 }

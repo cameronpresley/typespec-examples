@@ -1,0 +1,56 @@
+name: Deployment
+
+permissions:
+  contents: read # This is required for actions/checkout
+  packages: write # Needed to upload package
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and Test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 'Setup Java'
+        uses: actions/setup-java@v4
+        with: 
+          distribution: oracle
+          java-version: 22
+
+      - name: 'Setup Node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: "Install packages"
+        shell: bash
+        run: |
+          npm ci
+
+      - name: Generate swagger docs
+        shell: bash
+        run: npm run compile
+
+      - name: Create SDK client
+        shell: bash
+        run: | 
+          npm run generate
+
+      - name: Upload to Package Repo
+        shell: bash
+        working-directory: output/api_client
+        run: |
+          npm ci
+          npm publish
+        env: 
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+      
