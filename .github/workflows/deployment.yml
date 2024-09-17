@@ -27,8 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: "@cameronpresley"
+          registry-url: 'https://npm.pkg.github.com/'
 
       - name: "Install packages"
         shell: bash
@@ -44,16 +43,21 @@ jobs:
         run: | 
           npm run generate
 
-      - name: Copy .npmrc file for package
+      - name: Write .npmrc file
         shell: bash
+        working-directory: sdk-output/api_client
         run: |
-          ls -al
-          cp .npmrc sdk-output/api_client
+          cat << EOF >> .npmrc
+          //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+          @cameronpresley:registry=https://npm.pkg.github.com
+          always-auth=true
+          EOF
       
       - name: Upload to Package Repo
         shell: bash
         working-directory: sdk-output/api_client
         run: |
+          ls -al
           npm install
           npm publish
         env: 
