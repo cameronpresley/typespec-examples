@@ -52,6 +52,7 @@ jobs:
           //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
           @octocat:registry=https://npm.pkg.github.com
           always-auth=true
+          EOF
       
       - name: Upload to Package Repo
         shell: bash
